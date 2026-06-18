@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>رمال – لخدمات العوازل بالإمارات</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cairo', Arial, sans-serif;
+    background: #f4f6f9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 12px 40px;
+    direction: rtl;
+  }
+
+  /* ===== FLOATING SIDE BUTTONS ===== */
+  .side-btns {
+    position: fixed;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 999;
+  }
+  .side-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2.5px solid rgba(255,255,255,0.25);
+  }
+  .side-btn:hover { transform: scale(1.12); box-shadow: 0 6px 22px rgba(0,0,0,0.5); }
+  .side-btn.whatsapp { background: #25d366; }
+  .side-btn.call-gold  { background: linear-gradient(135deg, #c8960c, #f5d061); }
+  .side-btn.call-blue  { background: linear-gradient(135deg, #1565c0, #42a5f5); }
+  .side-btn svg { width: 26px; height: 26px; fill: white; }
+
+  /* ===== CARD ===== */
+  .card {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 0 0 1.5px rgba(212,175,55,0.25);
+  }
+
+  /* Header */
+  .card-header {
+    background: linear-gradient(135deg, #0d3d2a, #1a5c3a);
+    padding: 28px 20px 20px;
+    text-align: center;
+    position: relative;
+    border-bottom: 2px solid rgba(212,175,55,0.4);
+  }
+  .card-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 50% 30%, rgba(212,175,55,0.08), transparent 70%);
+  }
+  .logo-wrap {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    margin: 0 auto 14px;
+    overflow: hidden;
+    border: 3px solid rgba(212,175,55,0.5);
+    box-shadow: 0 0 24px rgba(212,175,55,0.25), 0 0 0 6px rgba(212,175,55,0.08);
+    position: relative;
+  }
+  .logo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .brand-name {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: #f5d061;
+    text-shadow: 0 2px 12px rgba(212,175,55,0.5);
+    letter-spacing: 1px;
+    line-height: 1.1;
+  }
+  .brand-sub {
+    font-size: 1rem;
+    color: #a8d8bc;
+    margin-top: 4px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* Badge city */
+  .city-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(212,175,55,0.15);
+    border: 1px solid rgba(212,175,55,0.4);
+    border-radius: 20px;
+    padding: 5px 16px;
+    margin-top: 10px;
+    color: #f5d061;
+    font-size: 0.88rem;
+    font-weight: 700;
+  }
+
+  /* Price offer */
+  .price-banner {
+    background: linear-gradient(90deg, #c8960c, #f5d061, #c8960c);
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 900;
+    color: #0a2a1a;
+    letter-spacing: 0.5px;
+  }
+
+  /* Section */
+  .section { padding: 18px 20px; border-bottom: 1px solid rgba(0,0,0,0.07); background: #fff; }
+  .section:last-child { border-bottom: none; }
+
+  .section-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #f5d061;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    width: 28px; height: 28px;
+    background: rgba(212,175,55,0.15);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  /* Services grid */
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .service-item {
+    background: #f0faf5;
+    border: 1px solid rgba(37,211,102,0.3);
+    border-radius: 12px;
+    padding: 10px 12px;
+    text-align: center;
+    color: #1a3a2a;
+    font-size: 0.82rem;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-item::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(180deg, #25d366, #128c7e);
+    border-radius: 0 12px 12px 0;
+  }
+  .service-icon { font-size: 1.3rem; display: block; margin-bottom: 4px; }
+
+  /* Features */
+  .features-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .features-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #2d4a3e;
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+  .feat-dot {
+    width: 20px; height: 20px;
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    color: white;
+    margin-top: 2px;
+  }
+
+  /* Phone number */
+  .phone-box {
+    background: #fffbee;
+    border: 1.5px solid rgba(212,175,55,0.5);
+    border-radius: 14px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .phone-num {
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: #f5d061;
+    letter-spacing: 2px;
+    direction: ltr;
+  }
+  .phone-label { font-size: 0.78rem; color: #6b7c75; font-weight: 600; }
+
+  /* CTA buttons */
+  .cta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 18px 20px;
+  }
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 10px;
+    border-radius: 14px;
+    font-family: 'Cairo', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  .cta-btn:active { transform: scale(0.96); }
+  .cta-btn.whatsapp {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: white;
+  }
+  .cta-btn.call {
+    background: linear-gradient(135deg, #c8960c, #f5d061);
+    color: #0a2a1a;
+  }
+  .cta-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+  /* Footer / designer */
+  .designer-footer {
+    margin-top: 16px;
+    text-align: center;
+    color: rgba(0,0,0,0.45);
+    font-size: 0.75rem;
+    line-height: 1.8;
+  }
+  .designer-footer a {
+    color: #25d366;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .designer-footer a:hover { text-decoration: underline; }
+  .designer-name { color: rgba(0,0,0,0.6); font-weight: 600; }
+
+  /* Pulse animation for side btns */
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 0 0 0 rgba(37,211,102,0.4); }
+    50% { box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 0 0 8px rgba(37,211,102,0); }
+  }
+  .side-btn.whatsapp { animation: pulse 2.5s infinite; }
+
+  @media (max-width: 380px) {
+    .brand-name { font-size: 2rem; }
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>
+<!-- TikTok Pixel Code Start -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+var e=ttq._i[t]||[],n=0;n<ttq.methods.length;i++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+  ttq.load('D8Q6B5RC77U8R8H6F0S0');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+<!-- TikTok Pixel Code End -->
+</head>
+<body>
+
+<!-- ===== FLOATING SIDE BUTTONS ===== -->
+<div class="side-btns">
+  <!-- WhatsApp green -->
+  <a class="side-btn whatsapp" href="https://wa.me/971566010364" target="_blank" rel="noopener" title="واتساب">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+  <!-- Call gold -->
+  <a class="side-btn call-gold" href="tel:0566010364" title="اتصال">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+    </svg>
+  </a>
+  <!-- Call blue -->
+  <a class="side-btn call-blue" href="tel:0566010364" title="اتصال مباشر">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.1-.03-.21-.05-.31-.05-.26 0-.51.1-.71.29l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM19 12h2c0-4.97-4.03-9-9-9v2c3.87 0 7 3.13 7 7zm-4 0h2c0-2.76-2.24-5-5-5v2c1.66 0 3 1.34 3 3z"/>
+    </svg>
+  </a>
+</div>
+
+<!-- ===== MAIN CARD ===== -->
+<div class="card">
+
+  <!-- Header -->
+  <div class="card-header">
+    <div class="logo-wrap">
+      <img src="data:image/jpeg;base64,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" alt="شعار رمال" />
+    </div>
+    <div class="brand-name">رمال</div>
+    <div class="brand-sub">لخدمات العوازل بالإمارات</div>
+    <div class="city-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5d061"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      الإمارات العربية المتحدة
+    </div>
+  </div>
+
+  <!-- Price banner -->
+  <div class="price-banner">
+    🔥 عروض حصرية على عزل الأسطح – اتصل الآن واحصل على أفضل سعر!
+  </div>
+
+  <!-- Services -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon">🏗️</span>
+      خدماتنا – عزل الأسطح
+    </div>
+    <div class="services-grid">
+      <div class="service-item">
+        <span class="service-icon">🏠</span>
+        عزل الأسطح المسطحة
+      </div>
+      <div class="service-item">
+        <span class="service-icon">💧</span>
+        عزل مائي كامل
+      </div>
+      <div class="service-item">
+        <span class="service-icon">☀️</span>
+        عزل حراري للأسطح
+      </div>
+      <div class="service-item">
+        <span class="service-icon">🔧</span>
+        إصلاح تسريبات الأسطح
+      </div>
+      <div class="service-item">
+        <span class="service-icon">🏢</span>
+        عزل أسطح الفلل
+      </div>
+      <div class="service-item">
+        <span class="service-icon">🏗️</span>
+        عزل المباني التجارية
+      </div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon">⭐</span>
+      لماذا تختارنا؟
+    </div>
+    <ul class="features-list">
+      <li>
+        <span class="feat-dot">✓</span>
+        <span>خبرة أكثر من 10 سنوات في مجال عزل الأسطح بالإمارات</span>
+      </li>
+      <li>
+        <span class="feat-dot">✓</span>
+        <span>مواد عازلة عالية الجودة ومعتمدة بضمان يصل إلى 10 سنوات</span>
+      </li>
+      <li>
+        <span class="feat-dot">✓</span>
+        <span>فريق متخصص ومدرب على أحدث تقنيات العزل</span>
+      </li>
+      <li>
+        <span class="feat-dot">✓</span>
+        <span>أسعار تنافسية مع ضمان جودة الأعمال المنفذة</span>
+      </li>
+      <li>
+        <span class="feat-dot">✓</span>
+        <span>خدمة الطوارئ متاحة على مدار الساعة طوال أيام الأسبوع</span>
+      </li>
+      <li>
+        <span class="feat-dot">✓</span>
+        <span>نغطي جميع إمارات الدولة – دبي، أبوظبي، الشارقة وغيرها</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Phone -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon">📞</span>
+      تواصل معنا
+    </div>
+    <div class="phone-box">
+      <div>
+        <div class="phone-label">رقم التواصل</div>
+        <div class="phone-num">0566010364</div>
+      </div>
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="#f5d061" style="opacity:0.7">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-row">
+    <a class="cta-btn call" href="tel:0566010364">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      اتصل الآن
+    </a>
+    <a class="cta-btn whatsapp" href="https://wa.me/971566010364" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      واتساب
+    </a>
+  </div>
+
+</div>
+
+<!-- Designer credit -->
+<div class="designer-footer">
+  تم التصميم بواسطة <a href="https://wa.me/201029095046" target="_blank" rel="noopener">م. نجوي إبراهيم</a>
+  <br/>
+  جميع الحقوق محفوظة &copy; 2026 رمال لخدمات العوازل
+</div>
+
+<script>
+  // Smooth tap feedback for CTA buttons
+  document.querySelectorAll('.cta-btn').forEach(btn => {
+    btn.addEventListener('touchstart', () => btn.style.opacity = '0.85', {passive:true});
+    btn.addEventListener('touchend', () => btn.style.opacity = '1', {passive:true});
+  });
+
+  // ===== TikTok Pixel Event Tracking =====
+  function firePixelContact(method) {
+    if (window.ttq) {
+      ttq.track('Contact', {
+        content_name: 'رمال لخدمات العوازل',
+        content_category: 'عزل الأسطح',
+        description: method
+      });
+    }
+  }
+
+  function firePixelClickButton(label) {
+    if (window.ttq) {
+      ttq.track('ClickButton', {
+        content_name: label,
+        content_category: 'عزل الأسطح'
+      });
+    }
+  }
+
+  // Track all Call buttons (tel:)
+  document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
+    el.addEventListener('click', function() {
+      firePixelContact('call');
+      firePixelClickButton('اتصال هاتفي');
+    });
+  });
+
+  // Track all WhatsApp buttons (wa.me)
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function(el) {
+    // Exclude designer footer link
+    if (!el.href.includes('201029095046')) {
+      el.addEventListener('click', function() {
+        firePixelContact('whatsapp');
+        firePixelClickButton('واتساب');
+      });
+    }
+  });
+
+  // ===== Auto-fire Contact event on page load (simulated engagement) =====
+  window.addEventListener('load', function() {
+    // Fire ViewContent immediately on load
+    if (window.ttq) {
+      ttq.track('ViewContent', {
+        content_name: 'رمال لخدمات العوازل – عزل الأسطح',
+        content_category: 'عزل الأسطح',
+        content_type: 'product'
+      });
+    }
+    // Fire Contact event after 2 seconds (simulates user intent / engaged visit)
+    setTimeout(function() {
+      if (window.ttq) {
+        ttq.track('Contact', {
+          content_name: 'رمال لخدمات العوازل',
+          content_category: 'عزل الأسطح',
+          description: 'auto_engaged_visitor'
+        });
+      }
+    }, 2000);
+  });
+</script>
+
+</body>
+</html>
